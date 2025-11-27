@@ -20,7 +20,7 @@ const PropertiesPage = () => {
         </video>
 
         <div className="absolute top-0 left-0 w-full h-full bg-black/70 z-10" />
-        <h1 className="text-white text-[6rem] md:text-[10rem] font-bricolage z-20">
+        <h1 className="text-white text-[5rem] md:text-[10rem] font-bricolage z-20">
           Properties
         </h1>
       </div>

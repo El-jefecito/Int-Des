@@ -1,5 +1,7 @@
+"use client";
 import Image from "next/image";
 import React from "react";
+import { motion } from "framer-motion";
 
 const processSteps = [
   {
@@ -60,6 +62,11 @@ const galleryItems = [
 ];
 
 const page = () => {
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    show: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } },
+  };
+
   return (
     <>
       {/* Page title */}
@@ -82,32 +89,46 @@ const page = () => {
 
       {/* about us */}
       <div className="bg-white py-10">
-        {/* top section */}
+        {/* Top section */}
         <div className="container mx-auto mb-10 px-4">
           <div className="flex flex-col lg:flex-row justify-between items-center">
-            <div className="lg:w-2/3 mb-6 lg:mb-0">
+            <motion.div
+              className="lg:w-2/3 mb-6 lg:mb-0"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
               <h1 className="text-3xl lg:text-8xl font-bold text-gray-800">
                 Interior & Exterior Solutions
               </h1>
-            </div>
-            <div className="lg:w-1/3">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-700">
-                  About Us
-                </h3>
-                <p className="mt-2 text-gray-600">
-                  Designing Dreams, Crafting Spaces - Where Vision Meets
-                  Elegance.
-                </p>
-              </div>
-            </div>
+            </motion.div>
+
+            <motion.div
+              className="lg:w-1/3"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
+              <h3 className="text-xl font-semibold text-gray-700">About Us</h3>
+              <p className="mt-2 text-gray-600">
+                Designing Dreams, Crafting Spaces - Where Vision Meets Elegance.
+              </p>
+            </motion.div>
           </div>
         </div>
 
         {/* Vision section */}
         <div className="container mx-auto px-4 mb-12">
-          <div className="flex flex-col lg:flex-row items-center">
-            <div className="lg:w-1/2 mb-6 lg:mb-0 overflow-hidden rounded-lg">
+          <div className="flex flex-col lg:flex-row items-center gap-8">
+            <motion.div
+              className="lg:w-1/2 mb-6 lg:mb-0 overflow-hidden rounded-lg"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
               <Image
                 src="/ab-vision-image1.jpeg"
                 alt="vision"
@@ -115,48 +136,69 @@ const page = () => {
                 height={500}
                 className="w-full h-[500px] object-cover"
               />
-            </div>
-            <div className="lg:w-1/2 lg:pl-12">
+            </motion.div>
+
+            <motion.div
+              className="lg:w-1/2 lg:pl-12"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
               <p className="mb-4 text-gray-700 leading-relaxed">
-                <span className="text-gray-800 font-bold">Our</span>
-                vision is to become a leader in transforming spaces through
-                innovative and thoughful design. We aim to create environments
-                that not only meet the asthetic and functional needs of our
-                clients but also inspire creativity, foster well-being, and
-                enhance the overall quality of life.
+                <span className="text-gray-800 font-bold">Our</span> vision is
+                to become a leader in transforming spaces through innovative and
+                thoughtful design. We aim to create environments that not only
+                meet the aesthetic and functional needs of our clients but also
+                inspire creativity, foster well-being, and enhance the overall
+                quality of life.
               </p>
               <p className="text-gray-800 leading-relaxed">
-                We envision a world where every space-whether residential,
-                commercial, or public, reflects the individuality and
+                We envision a world where every space — whether residential,
+                commercial, or public — reflects the individuality and
                 aspirations of those who occupy it, combining timeless design
                 with modern elegance. Through passion, collaboration, and
                 excellence, we aspire to shape interiors that leave a lasting
                 impression and positively impact the communities we serve.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
 
+        {/* Mission section */}
         <div className="container mx-auto px-4 mb-12">
-          <div className="flex flex-col lg:flex-row items-center">
-            <div className="lg:w-1/2 lg:pl-12">
+          <div className="flex flex-col lg:flex-row items-center gap-8">
+            <motion.div
+              className="lg:w-1/2 lg:pl-12"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
               <p className="mb-4 text-gray-700 leading-relaxed">
                 At <strong>IntDec</strong>, our mission is to craft inspiring,
                 functional, and personalized spaces that elevate the way our
                 clients live, work, and experience their surroundings. We are
                 committed to delivering exceptional design solutions that blend
                 creativity with practicality, transforming every environment
-                into a reflection of the clients unique vision and style.
+                into a reflection of the client’s unique vision and style.
               </p>
               <p className="text-gray-800 leading-relaxed">
                 We strive to build lasting relationships with our clients,
                 ensuring each project is executed with attention to detail,
-                innovation, and impeccable craftmanship. Our goal is to create
+                innovation, and impeccable craftsmanship. Our goal is to create
                 spaces that inspire, enrich, and enhance the everyday lives of
                 those who inhabit them.
               </p>
-            </div>
-            <div className="lg:w-1/2 mb-6 lg:mb-0 overflow-hidden rounded-lg">
+            </motion.div>
+
+            <motion.div
+              className="lg:w-1/2 mb-6 lg:mb-0 overflow-hidden rounded-lg"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
               <Image
                 src="/ab-vision-image2.jpeg"
                 alt="vision"
@@ -164,40 +206,62 @@ const page = () => {
                 height={500}
                 className="w-full h-[500px] object-cover"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
-
       {/* design process */}
       <section className="bg-gray-100 px-[8%] lg:px-[12%] py-16">
         <div className="container mx-auto px-4">
+          {/* Heading */}
           <div className="flex flex-col lg:flex-row justify-between items-center mb-12">
-            <div className="lg:w-1/2 mb-10 lg:mb-0">
+            <motion.div
+              className="lg:w-1/2 mb-10 lg:mb-0"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
               <h1 className="text-8xl font-bricolage-font font-semibold">
                 Our Design Process
               </h1>
-            </div>
-            <div className="lg:h-1/3">
+            </motion.div>
+
+            <motion.div
+              className="lg:h-1/3"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
               <h3 className="uppercase tracking-wider font-semibold border-b pb-2 mb-6 text-sm w-fit">
                 Process
               </h3>
               <p className="text-lg max-w-md">
                 Discover how our thoughtful process transforms ideas into
-                personalized, function and beautifully styled spaces.
+                personalized, functional, and beautifully styled spaces.
               </p>
-            </div>
+            </motion.div>
           </div>
 
+          {/* Steps */}
           <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols pt-10">
-            {processSteps.map(({ id, imgSrc, title, description }) => (
-              <div key={id} className="w-full relative mb-10">
+            {processSteps.map(({ id, imgSrc, title, description }, index) => (
+              <motion.div
+                key={id}
+                className="w-full relative mb-10"
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+              >
                 <div className="flex flex-col items-center cursor-pointer relative group">
                   {/* Circle with image and number */}
                   <div className="w-[170px] h-[170px] rounded-full shadow-lg flex items-center justify-center relative hover:-translate-y-1.5 transition-transform duration-300">
                     <img
                       src={imgSrc}
-                      alt={`Process ste ${id}`}
+                      alt={`Process step ${id}`}
                       className="w-[70px] h-[70px] transition-transform duration-500 ease-out group-hover:-rotate-y-360"
                     />
                     <span className="absolute -top-3 right-10 bg-black text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-semibold select-none">
@@ -209,12 +273,13 @@ const page = () => {
                   <h2 className="font-bricolage text-xl mt-6 mb-4 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-black after-w-0 group-hover:after:w-full after:transition-width after:duration-300">
                     {title}
                   </h2>
-                  {/*  Description*/}
+
+                  {/* Description */}
                   <p className="text-center text-base max-w-[70%] mx-auto">
                     {description}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -223,15 +288,29 @@ const page = () => {
       {/* Gallery */}
       <section className="px-[8%] lg:px-[12%] py-16">
         <div className="container mx-auto px-4">
-          <h1 className="text-8xl font-bricolage font-bold mb-10">Gallery</h1>
+          <motion.h1
+            className="text-8xl font-bricolage font-bold mb-10"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
+            Gallery
+          </motion.h1>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {galleryItems.map((item, index) => (
-              <a
+              <motion.a
                 key={index}
                 href={item.img}
                 data-lightbox={item.lightbox}
                 data-title={item.title}
                 className="group relative block overflow-hidden rounded-md"
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.15 }}
               >
                 <div className="relative w-full h-[400px]">
                   <Image
@@ -247,7 +326,7 @@ const page = () => {
                     {item.title}
                   </h4>
                 </div>
-              </a>
+              </motion.a>
             ))}
           </div>
         </div>

@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
 
@@ -87,6 +90,15 @@ const marqueeItems2 = [
 ];
 
 const page = () => {
+  const fadeUp = {
+    hidden: { opacity: 0, y: 30 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
   return (
     <>
       {/* Page title */}
@@ -108,14 +120,28 @@ const page = () => {
       </div>
 
       {/* services */}
-      <section className="px-[8%] lg:-[12%] py-12">
+      <section className="px-[8%] lg:px-[12%] py-12">
+        {/* Heading */}
         <div className="flex flex-col lg:flex-row justify-between items-center mb-12">
-          <div className="lg:w-2/3 mb-8 lg:mb-0">
+          <motion.div
+            className="lg:w-2/3 mb-8 lg:mb-0"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             <h1 className="text-7xl font-bricolage font-bold">
               Interior Design Solutions
             </h1>
-          </div>
-          <div className="lg:w-1/3">
+          </motion.div>
+
+          <motion.div
+            className="lg:w-1/3"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             <h3 className="text-2xl font-semibold mt-3">Our Services</h3>
             <p className="mb-4 text-gray-700">
               Whether you are dreaming of a cozy home retreat or a bold, modern
@@ -127,29 +153,42 @@ const page = () => {
                 <i className="bi bi-arrow-up-right ms-2"></i>
               </button>
             </a>
-          </div>
+          </motion.div>
         </div>
 
+        {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10">
           {Services.map((service, index) => (
-            <div
+            <motion.div
               key={index}
               className="border border-black rounded-xl p-6 transition-all duration-300 hover:border-transparent shadow hover:shadow-lg hover:-translate-y-1 cursor-pointer"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.15 }}
             >
-              <Image
-                src={service.icon}
-                alt={service.title}
-                width={70}
-                height={70}
-                className="mb-4 transition-transform duration-700 group-hover:rotate-360"
-              />
+              <motion.div
+                className="mb-4"
+                whileHover={{ rotate: 15 }} // subtle tilt on hover
+                transition={{ duration: 0.5 }}
+              >
+                <Image
+                  src={service.icon}
+                  alt={service.title}
+                  width={70}
+                  height={70}
+                  className="transition-transform duration-700 group-hover:rotate-360"
+                />
+              </motion.div>
+
               <h2 className="text-3xl font-bricolage relative inline-block mt-2 mb-2 after:block after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-black hover:after:w-full after:transition-all after-duration-300">
                 {service.title}
               </h2>
               <p className="text-gray-700 font-normal w-4/5">
                 {service.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -204,13 +243,27 @@ const page = () => {
 
       {/* services2 */}
       <section className="px-[8%] lg:px-[12%] py-[12%] bg-gray-100">
+        {/* Heading */}
         <div className="flex flex-col lg:flex-row justify-between items-center mb-12">
-          <div className="lg:w-2/3 mb-8 lg:mb-0">
+          <motion.div
+            className="lg:w-2/3 mb-8 lg:mb-0"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             <h1 className="text-7xl font-bricolage font-bold">
               Architecture <br /> Design Solutions
             </h1>
-          </div>
-          <div className="lg:w-1/3">
+          </motion.div>
+
+          <motion.div
+            className="lg:w-1/3"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             <h3 className="text-2xl font-semibold mt-3">Our Services</h3>
             <p className="mb-4 text-gray-700">
               Whether you are dreaming of a cozy home retreat or a bold, modern
@@ -222,29 +275,42 @@ const page = () => {
                 <i className="bi bi-arrow-up-right ms-2"></i>
               </button>
             </a>
-          </div>
+          </motion.div>
         </div>
 
+        {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10">
           {services2.map((service, index) => (
-            <div
+            <motion.div
               key={index}
               className="border border-black rounded-xl p-6 transition-all duration-300 hover:border-transparent shadow hover:shadow-lg hover:-translate-y-1 cursor-pointer"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.15 }}
             >
-              <Image
-                src={service.icon}
-                alt={service.title}
-                width={60}
-                height={60}
-                className="mb-4 transition-transform duration-700 group-hover:rotate-360deg"
-              />
+              <motion.div
+                className="mb-4"
+                whileHover={{ rotate: 15 }} // subtle tilt on hover
+                transition={{ duration: 0.5 }}
+              >
+                <Image
+                  src={service.icon}
+                  alt={service.title}
+                  width={60}
+                  height={60}
+                  className="transition-transform duration-700 group-hover:rotate-360deg"
+                />
+              </motion.div>
+
               <h2 className="text-3xl font-bricolage relative inline-block mt-2 mb-2 after:block after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-black hover:after:w-full after:transition-all after:duration-300">
                 {service.title}
               </h2>
               <p className="text-gray-700 font-normal w-4/5">
                 {service.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>

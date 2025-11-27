@@ -42,7 +42,7 @@ const Nav = () => {
             isSticky ? "text-black" : "text-white"
           }`}
         >
-          Int<span className="text-orange-500 font-bricolage">Des</span>
+          Ves<span className="text-orange-500 font-bricolage">tra</span>
         </Link>
 
         {/* Desktop nav */}

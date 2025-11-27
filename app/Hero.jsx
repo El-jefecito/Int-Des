@@ -6,10 +6,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import React, { useState } from "react";
 
 import PropertyData from "@/app/JsonData/Properties.json";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 // content
 
 // hero
@@ -289,6 +289,52 @@ const socialImages = [
   "/social-slide-5.jpg",
 ];
 
+// framer animations
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.18,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.25, // slower stagger
+      duration: 0.6,
+    },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1.1, ease: "easeOut" }, // slower entrance
+  },
+};
+
+const container2 = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.2 } },
+};
+
+const cardVariant = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } },
+};
+
 const Hero = () => {
   const [activeTab, setActiveTab] = useState("his");
 
@@ -346,11 +392,13 @@ const Hero = () => {
           ))}
 
           {/* Navigation buttons */}
-          <div className="swiper-button-next swiper-btn pr-8 swiper-next left-4 top-[80%] absolute z-20">
-            <i className="ri-arrow-right-wide-line"></i>
+          {/* Navigation buttons */}
+          <div className="swiper-button-prev swiper-btn swiper-prev">
+            <i className="ri-arrow-left-wide-line opacity-60"></i>
           </div>
-          <div className="swiper-button-prev swiper-btn swiper-prev left-4 top-[90%] absolute z-20">
-            <i className="ri-arrow-left-wide-line"></i>
+
+          <div className="swiper-button-next swiper-btn swiper-next">
+            <i className="ri-arrow-right-wide-line opacity-60"></i>
           </div>
         </Swiper>
       </div>
@@ -368,152 +416,22 @@ const Hero = () => {
         </div>
       </div>
       {/* about */}
-      <section className="px-8 lg:-[12%] py-12">
-        {/* Top section */}
-        <div className="flex flex-col lg:flex-row justify-between items-start gap-12">
-          <div className="lg:w-2/3">
-            <h2 className="text-[4rem] leading-16 lg:text-[6rem] lg:leading-24 font-bold font-bricolage tracking-[.2rem]">
-              Interior & Architecture Design Solutions
-            </h2>
-          </div>
-          <div className="lg:w-1/2">
-            <h3 className="uppercase tracking-wider font-semibold border-b pb-2 mb-6 text-sm w-fit">
-              About Us
-            </h3>
-            <p className="text-base mb-4 text-gray-700">
-              At this Associates. we are committed to transforming spaces
-              through creative vision, elegant design, and solutions that truly
-              reflect your lifestyle.
-            </p>
-            <a
-              href="/about"
-              className="inline-flex items-center text-black font-medium hover:underline text-lg"
-            >
-              Company Info <span>↗️</span>
-            </a>
-          </div>
-        </div>
-
-        {/* main section */}
-        <div className="mt-12 flex flex-col lg:flex-row gap-10">
-          <div className="lg:w-1/2 w-full">
-            <Swiper
-              modules={[Navigation, EffectCards, Autoplay]}
-              loop={true}
-              effect="cards"
-              grabCursor={true}
-              autoplay={{ delay: 1500 }}
-              navigation={{
-                nextEl: ".swiper-about-next",
-                prevEl: ".swiper-about-prev",
-              }}
-              className="rounded"
-              style={{ padding: "30px" }}
-            >
-              {[
-                "interior-image-01.jpg",
-                "interior-image-02.jpg",
-                "interior-image-05.jpg",
-              ].map((src, index) => (
-                <SwiperSlide>
-                  <img
-                    src={src}
-                    alt={`slide ${index + 1}`}
-                    className="w-full h-[580px] object-cover rounded"
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-
-          {/* Tabs content */}
-          <div className="lg:w-1/2 w-full px-0 lg:px-10 pt-10">
-            <div className="flex gap-6 border-b mb-6">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.key}
-                  className={`relative pb-2 text-lg font-medium transition-colors cursor-pointer ${
-                    activeTab === tab.key
-                      ? 'text-black after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-black'
-                      : "text-gray-400 hover:text-black"
-                  }`}
-                  onClick={() => setActiveTab(tab.key)}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-
-            {/* tab content */}
-            <div className="space-y-4 text-gray-700">
-              {tabContent[activeTab].map((para, index) => (
-                <p key={index} className="text-base leading-relaxed">
-                  {para}
-                </p>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* Design Process */}
-      <section className="bg-gray-100 px-[8%] lg:px-[12%] py-16">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row justify-between items-center mb-12">
-            <div className="lg:w-1/2 mb-10 lg:mb-0">
-              <h1 className="text-8xl font-bricolage-font font-semibold">
-                Our Design Process
-              </h1>
-            </div>
-            <div className="lg:h-1/3">
-              <h3 className="uppercase tracking-wider font-semibold border-b pb-2 mb-6 text-sm w-fit">
-                Process
-              </h3>
-              <p className="text-lg max-w-md">
-                Discover how our thoughtful process transforms ideas into
-                personalized, function and beautifully styled spaces.
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols pt-10">
-            {processSteps.map(({ id, imgSrc, title, description }) => (
-              <div key={id} className="w-full relative mb-10">
-                <div className="flex flex-col items-center cursor-pointer relative group">
-                  {/* Circle with image and number */}
-                  <div className="w-[170px] h-[170px] rounded-full shadow-lg flex items-center justify-center relative hover:-translate-y-1.5 transition-transform duration-300">
-                    <img
-                      src={imgSrc}
-                      alt={`Process ste ${id}`}
-                      className="w-[70px] h-[70px] transition-transform duration-500 ease-out group-hover:-rotate-y-360"
-                    />
-                    <span className="absolute -top-3 right-10 bg-black text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-semibold select-none">
-                      {id}.
-                    </span>
-                  </div>
-
-                  {/* Title */}
-                  <h2 className="font-bricolage text-xl mt-6 mb-4 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-black after-w-0 group-hover:after:w-full after:transition-width after:duration-300">
-                    {title}
-                  </h2>
-                  {/*  Description*/}
-                  <p className="text-center text-base max-w-[70%] mx-auto">
-                    {description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* Services */}
-      <section className="px-[8%] lg:-[12%] py-12">
-        <div className="flex flex-col lg:flex-row justify-between items-center mb-12">
-          <div className="lg:w-2/3 mb-8 lg:mb-0">
+      <section className="px-[8%] lg:px-[12%] py-12">
+        {/* Top Section */}
+        <motion.div
+          className="flex flex-col lg:flex-row justify-between items-center mb-12"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={container}
+        >
+          <motion.div className="lg:w-2/3 mb-8 lg:mb-0" variants={fadeUp}>
             <h1 className="text-7xl font-bricolage font-bold">
               Interior Design Solutions
             </h1>
-          </div>
-          <div className="lg:w-1/3">
+          </motion.div>
+
+          <motion.div className="lg:w-1/3" variants={fadeUp}>
             <h3 className="text-2xl font-semibold mt-3">Our Services</h3>
             <p className="mb-4 text-gray-700">
               Whether you are dreaming of a cozy home retreat or a bold, modern
@@ -525,14 +443,22 @@ const Hero = () => {
                 <i className="bi bi-arrow-up-right ms-2"></i>
               </button>
             </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10">
+        {/* Services Grid */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
           {Services.map((service, index) => (
-            <div
+            <motion.div
               key={index}
-              className="border border-black rounded-xl p-6 transition-all duration-300 hover:border-transparent shadow hover:shadow-lg hover:-translate-y-1 cursor-pointer"
+              variants={fadeUp}
+              className="border border-black rounded-xl p-6 transition-all duration-300 hover:border-transparent shadow hover:shadow-lg hover:-translate-y-1 cursor-pointer group"
             >
               <Image
                 src={service.icon}
@@ -541,25 +467,175 @@ const Hero = () => {
                 height={70}
                 className="mb-4 transition-transform duration-700 group-hover:rotate-360"
               />
-              <h2 className="text-3xl font-bricolage relative inline-block mt-2 mb-2 after:block after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-black hover:after:w-full after:transition-all after-duration-300">
+
+              <h2 className="text-3xl font-bricolage relative inline-block mt-2 mb-2 after:block after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-black group-hover:after:w-full after:transition-all after-duration-300">
                 {service.title}
               </h2>
+
               <p className="text-gray-700 font-normal w-4/5">
                 {service.description}
               </p>
-            </div>
+            </motion.div>
           ))}
+        </motion.div>
+      </section>
+      {/* Design Process */}
+      <section className="bg-gray-100 px-[8%] lg:px-[12%] py-16">
+        <div className="container mx-auto px-4">
+          {/* Top Section */}
+          <motion.div
+            className="flex flex-col lg:flex-row justify-between items-center mb-12"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.0 }}
+          >
+            <div className="lg:w-1/2 mb-10 lg:mb-0">
+              <h1 className="text-8xl font-bricolage-font font-semibold">
+                Our Design Process
+              </h1>
+            </div>
+
+            <div className="lg:h-1/3">
+              <h3 className="uppercase tracking-wider font-semibold border-b pb-2 mb-6 text-sm w-fit">
+                Process
+              </h3>
+              <p className="text-lg max-w-md">
+                Discover how our thoughtful process transforms ideas into
+                personalized, functional and beautifully styled spaces.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Grid Section */}
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 pt-10"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
+            {processSteps.map(({ id, imgSrc, title, description }) => (
+              <motion.div key={id} variants={itemVariants}>
+                <div className="flex flex-col items-center cursor-pointer relative group mb-12">
+                  {/* Image Circle */}
+                  <motion.div
+                    whileHover={{ y: -10 }}
+                    transition={{ type: "spring", stiffness: 100, damping: 10 }}
+                    className="w-[170px] h-[170px] rounded-full shadow-lg flex items-center justify-center relative bg-white"
+                  >
+                    <motion.img
+                      src={imgSrc}
+                      alt={`Process step ${id}`}
+                      className="w-[70px] h-[70px]"
+                      whileHover={{ rotateY: 360 }}
+                      transition={{ duration: 1.0, ease: "easeIn" }}
+                    />
+
+                    {/* Number Badge */}
+                    <span className="absolute -top-3 right-10 bg-black text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-semibold">
+                      {id}.
+                    </span>
+                  </motion.div>
+
+                  {/* Title */}
+                  <h2 className="font-bricolage text-xl mt-6 mb-4 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-black after:w-0 group-hover:after:w-full after:transition-all after:duration-300">
+                    {title}
+                  </h2>
+
+                  {/* Description */}
+                  <p className="text-center text-base max-w-[70%] mx-auto">
+                    {description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
+      </section>
+      {/* Services */}
+      <section className="px-[8%] lg:px-[12%] py-12">
+        {/* Top Section */}
+        <motion.div
+          className="flex flex-col lg:flex-row justify-between items-center mb-12"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={container}
+        >
+          <motion.div className="lg:w-2/3 mb-8 lg:mb-0" variants={fadeUp}>
+            <h1 className="text-7xl font-bricolage font-bold">
+              Interior Design Solutions
+            </h1>
+          </motion.div>
+
+          <motion.div className="lg:w-1/3" variants={fadeUp}>
+            <h3 className="text-2xl font-semibold mt-3">Our Services</h3>
+            <p className="mb-4 text-gray-700">
+              Whether you are dreaming of a cozy home retreat or a bold, modern
+              workspace, our experience
+            </p>
+            <a href="/Services">
+              <button className="btn py-3 px-0 text-lg font-medium flex items-center">
+                <span className="text-black">All Services</span>
+                <i className="bi bi-arrow-up-right ms-2"></i>
+              </button>
+            </a>
+          </motion.div>
+        </motion.div>
+
+        {/* Services Grid */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
+          {Services.map((service, index) => (
+            <motion.div
+              key={index}
+              variants={fadeUp}
+              className="border border-black rounded-xl p-6 transition-all duration-300 hover:border-transparent shadow hover:shadow-lg hover:-translate-y-1 cursor-pointer group"
+            >
+              <Image
+                src={service.icon}
+                alt={service.title}
+                width={70}
+                height={70}
+                className="mb-4 transition-transform duration-700 group-hover:rotate-360"
+              />
+
+              <h2 className="text-3xl font-bricolage relative inline-block mt-2 mb-2 after:block after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-black group-hover:after:w-full after:transition-all after-duration-300">
+                {service.title}
+              </h2>
+
+              <p className="text-gray-700 font-normal w-4/5">
+                {service.description}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
       </section>
       {/* properties */}
       <section className="px-[8%] lg:px-[12%] py-16 relative">
-        <div className="flex flex-col lg:flex-row justify-between items-center mb-12">
-          <div className="lg:w-2/3 mb-8 lg:mb-0">
+        {/* Heading */}
+        <motion.div
+          className="flex flex-col lg:flex-row justify-between items-center mb-12"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { staggerChildren: 0.3 } },
+          }}
+        >
+          <motion.div className="lg:w-2/3 mb-8 lg:mb-0" variants={fadeUp}>
             <h1 className="text-7xl font-bricolage font-bold">
               Our Properties
             </h1>
-          </div>
-          <div className="lg:w-1/3">
+          </motion.div>
+          <motion.div className="lg:w-1/3" variants={fadeUp}>
             <h3 className="text-2xl font-semibold mt-3">Our Properties</h3>
             <p className="mb-4 text-gray-700">
               We build our projects with your dreams and ideas. Touch modern
@@ -571,19 +647,18 @@ const Hero = () => {
                 <i className="bi bi-arrow-up-right ms-2"></i>
               </button>
             </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
+        {/* Swiper */}
         <Swiper
-          loop={true}
+          loop
           modules={[Navigation, Autoplay]}
           navigation={{
             nextEl: ".swiper-project-next",
             prevEl: ".swiper-project-prev",
           }}
-          autoplay={{
-            delay: 1500,
-          }}
+          autoplay={{ delay: 1500 }}
           spaceBetween={24}
           slidesPerView={1}
           breakpoints={{
@@ -596,15 +671,23 @@ const Hero = () => {
           {PropertyData.map((property) => (
             <SwiperSlide key={property.id}>
               <Link href={`properties/${property.id}`}>
-                <div className="relative h-[450px] rounded overflow-hidden group">
+                <motion.div
+                  className="relative h-[450px] rounded overflow-hidden group"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2, ease: "easeOut" }}
+                >
                   <Image
                     src={property.image}
                     alt={property.title}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
+
                   {/* overlay gradient */}
                   <div className="absolute inset-x-0 bottom-0 h-[30%] bg-linear-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-0" />
+
                   {/* Title and Price */}
                   <div className="flex justify-between items-center w-full absolute bottom-0 left-0 z-10 px-4 py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-700">
                     <h4 className="text-white text-2xl font-bricolage font-bold">
@@ -614,16 +697,13 @@ const Hero = () => {
                       ${property.price}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               </Link>
             </SwiperSlide>
           ))}
         </Swiper>
 
-        {/* Swiper Navigation buttons */}
-
-        {/* Swiper Navigation buttons */}
-
+        {/* Navigation */}
         <div className="absolute top-[32%] left-[10%] right-4 ml-9 -translate-y-1/2 hidden lg:flex items-center gap-12 z-10">
           <div className="swiper-project-prev cursor-pointer text-2xl text-black">
             <i className="bi bi-arrow-left"></i>
@@ -682,13 +762,43 @@ const Hero = () => {
       </div>
       {/* services2 */}
       <section className="px-[8%] lg:px-[12%] py-[12%] bg-gray-100">
-        <div className="flex flex-col lg:flex-row justify-between items-center mb-12">
-          <div className="lg:w-2/3 mb-8 lg:mb-0">
+        {/* Heading */}
+        <motion.div
+          className="flex flex-col lg:flex-row justify-between items-center mb-12"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { staggerChildren: 0.25 } },
+          }}
+        >
+          <motion.div
+            className="lg:w-2/3 mb-8 lg:mb-0"
+            variants={{
+              hidden: { opacity: 0, y: 40 },
+              show: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 1.2, ease: "easeOut" },
+              },
+            }}
+          >
             <h1 className="text-7xl font-bricolage font-bold">
               Architecture <br /> Design Solutions
             </h1>
-          </div>
-          <div className="lg:w-1/3">
+          </motion.div>
+          <motion.div
+            className="lg:w-1/3"
+            variants={{
+              hidden: { opacity: 0, y: 40 },
+              show: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 1.2, ease: "easeOut" },
+              },
+            }}
+          >
             <h3 className="text-2xl font-semibold mt-3">Our Services</h3>
             <p className="mb-4 text-gray-700">
               Whether you are dreaming of a cozy home retreat or a bold, modern
@@ -700,44 +810,76 @@ const Hero = () => {
                 <i className="bi bi-arrow-up-right ms-2"></i>
               </button>
             </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
+        {/* Service Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10">
-          {services2.map((service, index) => (
-            <div
-              key={index}
-              className="border border-black rounded-xl p-6 transition-all duration-300 hover:border-transparent shadow hover:shadow-lg hover:-translate-y-1 cursor-pointer"
-            >
-              <Image
-                src={service.icon}
-                alt={service.title}
-                width={60}
-                height={60}
-                className="mb-4 transition-transform duration-700 group-hover:rotate-360deg"
-              />
-              <h2 className="text-3xl font-bricolage relative inline-block mt-2 mb-2 after:block after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-black hover:after:w-full after:transition-all after:duration-300">
-                {service.title}
-              </h2>
-              <p className="text-gray-700 font-normal w-4/5">
-                {service.description}
-              </p>
-            </div>
-          ))}
+          {services2.map((service, index) => {
+            const ref = React.useRef(null);
+            const { scrollYProgress } = useScroll({
+              target: ref,
+              offset: ["0 1", "1 0"], // triggers tilt when card enters view
+            });
+
+            const rotate = useTransform(scrollYProgress, [0, 1], [-15, 0]); // tilt range
+            return (
+              <motion.div
+                key={index}
+                ref={ref}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.1, ease: "easeOut" }}
+                className="border border-black rounded-xl p-6 transition-all duration-300 hover:border-transparent shadow hover:shadow-lg hover:-translate-y-1 cursor-pointer"
+              >
+                <motion.div style={{ rotate }} className="w-fit mx-auto mb-4">
+                  <Image
+                    src={service.icon}
+                    alt={service.title}
+                    width={60}
+                    height={60}
+                    className="transition-transform duration-700"
+                  />
+                </motion.div>
+
+                <h2 className="text-3xl font-bricolage relative inline-block mt-2 mb-2 after:block after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-black hover:after:w-full after:transition-all after:duration-300">
+                  {service.title}
+                </h2>
+                <p className="text-gray-700 font-normal w-4/5">
+                  {service.description}
+                </p>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
       {/* Gallery */}
       <section className="px-[8%] lg:px-[12%] py-16">
         <div className="container mx-auto px-4">
-          <h1 className="text-8xl font-bricolage font-bold mb-10">Gallery</h1>
+          <motion.h1
+            className="text-8xl font-bricolage font-bold mb-10"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
+            Gallery
+          </motion.h1>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {galleryItems.map((item, index) => (
-              <a
+              <motion.a
                 key={index}
                 href={item.img}
                 data-lightbox={item.lightbox}
                 data-title={item.title}
                 className="group relative block overflow-hidden rounded-md"
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.15 }}
               >
                 <div className="relative w-full h-[400px]">
                   <Image
@@ -753,7 +895,7 @@ const Hero = () => {
                     {item.title}
                   </h4>
                 </div>
-              </a>
+              </motion.a>
             ))}
           </div>
         </div>
@@ -781,72 +923,88 @@ const Hero = () => {
       </div>
       {/* Testimonial */}
       <section className="px-[8%] lg:px-[12%] py-20 bg-white">
+        {/* Heading */}
         <div className="flex flex-col lg:flex-row justify-between items-center mb-12 gap-8">
-          <div className="lg:w-1/2">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            className="lg:w-1/2"
+          >
             <h1 className="text-7xl font-bricolage font-bold">
               Client <br /> Testimonials
             </h1>
-          </div>
-          <div className="lg:w-2/5">
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            className="lg:w-2/5"
+          >
             <h3 className="text-xl font-semibold mb-2">Testimonials</h3>
             <p className="text-gray-600">
-              Discover how our thoughful process transforms ideas into
+              Discover how our thoughtful process transforms ideas into
               personalized, functional, and beautifully styled spaces.
             </p>
-          </div>
+          </motion.div>
         </div>
 
-        <Swiper
-          spaceBetween={20}
-          slidesPerView={1}
-          loop={true}
-          breakpoints={{
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-          }}
-          className="w-full"
+        {/* Swiper */}
+        <motion.div
+          variants={container2}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
         >
-          {testimonials.map((testimonial, index) => (
-            <SwiperSlide key={index}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                whileHover={{ scale: 1.02 }}
-                className="bg-gray-100 p-6 md:p-8 rounded-xl shadow-md h-full flex flex-col"
-              >
-                <img
-                  src="/qoute.svg"
-                  alt="quote"
-                  className="w-8 h-8 md:w-10 md:h-10 object-contain mb-4 opacity-25"
-                />
-
-                <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-6 flex-grow">
-                  {testimonial.quote}
-                </p>
-
-                <div className="flex items-center mt-auto">
+          <Swiper
+            spaceBetween={20}
+            slidesPerView={1}
+            loop={true}
+            breakpoints={{
+              640: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+            className="w-full"
+          >
+            {testimonials.map((testimonial, index) => (
+              <SwiperSlide key={index}>
+                <motion.div
+                  variants={cardVariant}
+                  whileHover={{ scale: 1.02 }}
+                  className="bg-gray-100 p-6 md:p-8 rounded-xl shadow-md h-full flex flex-col"
+                >
                   <img
-                    src={testimonial.image}
-                    alt="testimonial"
-                    className="w-14 h-14 md:w-20 md:h-20 rounded-full object-cover"
+                    src="/qoute.svg"
+                    alt="quote"
+                    className="w-8 h-8 md:w-10 md:h-10 object-contain mb-4 opacity-25"
                   />
-
-                  <div className="ml-4">
-                    <h2 className="font-semibold text-base md:text-lg">
-                      {testimonial.name}
-                    </h2>
-                    <p className="text-sm text-gray-500">
-                      {testimonial.location}
-                    </p>
+                  <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-6 flex-grow">
+                    {testimonial.quote}
+                  </p>
+                  <div className="flex items-center mt-auto">
+                    <img
+                      src={testimonial.image}
+                      alt="testimonial"
+                      className="w-14 h-14 md:w-20 md:h-20 rounded-full object-cover"
+                    />
+                    <div className="ml-4">
+                      <h2 className="font-semibold text-base md:text-lg">
+                        {testimonial.name}
+                      </h2>
+                      <p className="text-sm text-gray-500">
+                        {testimonial.location}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+                </motion.div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </motion.div>
       </section>
       {/* social images */}
       <div className="w-full h-[500px]">

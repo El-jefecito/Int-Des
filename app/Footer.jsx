@@ -25,7 +25,7 @@ const Footer = () => {
                   <span className="text-xl block">Call our office</span>
                   <h4 className="mt-3 text-xl font-semibold">
                     <a href="tel:+746477884" className="hover:underline">
-                      +91 1234577484
+                      +234 8155045934
                     </a>
                   </h4>
                 </div>
@@ -82,17 +82,17 @@ const Footer = () => {
                 <h3 className="uppercase text -3xl font-bricolage mb-3">
                   Follow Us
                 </h3>
-                <a href="#">
+                <a>
                   <Link
-                    href="/contact"
+                    href="/facebook.com"
                     className="text-xl font-medium text-gray-700 hover:text-black"
                   >
                     Facebook
                   </Link>
                 </a>
-                <a href="#">
+                <a>
                   <Link
-                    href="/contact"
+                    href="/instagram.com"
                     className="text-xl font-medium text-gray-700 hover:text-black"
                   >
                     Instagram

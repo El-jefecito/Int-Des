@@ -90,16 +90,28 @@ body {
   display: none;
 }
 
+/* Base button styles */
 .swiper-btn {
   position: absolute;
-  top: 75% !important;
-  left: 8% !important;
+  top: 50%; /* vertically center relative to slider */
+  transform: translateY(-50%);
+  z-index: 20;
+  cursor: pointer;
 }
 
+/* Previous button */
+.swiper-prev {
+  left: 0; /* pinned to left edge of the page */
+  padding-left: 1.5rem; /* add spacing from edge */
+}
+
+/* Next button */
 .swiper-next {
-  top: 84% !important;
+  right: 0; /* pinned to right edge of the page */
+  padding-right: 1.5rem; /* add spacing from edge */
 }
 
+/* Icon styles */
 .swiper-btn i {
   font-size: 1.5rem;
   width: 55px;
@@ -110,14 +122,13 @@ body {
   align-items: center;
   justify-content: center;
   padding: 10px;
-  /* border: 1px solid var(--white-color); */
   transition: var(--transition-regular);
+  /* Optional hover */
+  background-color: rgba(255, 255, 255, 0.2);
 }
-
 .swiper-btn i:hover {
-  background-color: var(--white-color);
-  color: var(--black-color);
-  scale: 0.9;
+  background-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
 }
 
 .hero-content span {
