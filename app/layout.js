@@ -27,7 +27,7 @@ const bricolage = Bricolage_Grotesque({
 
 export const metadata = {
   title: "Vestra",
-  description: "InteriorDeco Properties Listing",
+  description: "Vestra Properties Listing",
 };
 
 export default function RootLayout({ children }) {
