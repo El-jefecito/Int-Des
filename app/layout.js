@@ -26,7 +26,7 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata = {
-  title: "InteriorDeco",
+  title: "Vestra",
   description: "InteriorDeco Properties Listing",
 };
 

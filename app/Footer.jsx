@@ -82,22 +82,20 @@ const Footer = () => {
                 <h3 className="uppercase text -3xl font-bricolage mb-3">
                   Follow Us
                 </h3>
-                <a>
-                  <Link
-                    href="/facebook.com"
-                    className="text-xl font-medium text-gray-700 hover:text-black"
-                  >
-                    Facebook
-                  </Link>
-                </a>
-                <a>
-                  <Link
-                    href="/instagram.com"
-                    className="text-xl font-medium text-gray-700 hover:text-black"
-                  >
-                    Instagram
-                  </Link>
-                </a>
+
+                <Link
+                  href="/facebook.com"
+                  className="text-xl font-medium text-gray-700 hover:text-black"
+                >
+                  Facebook
+                </Link>
+
+                <Link
+                  href="/instagram.com"
+                  className="text-xl font-medium text-gray-700 hover:text-black"
+                >
+                  Instagram
+                </Link>
               </div>
             </div>
           </div>
