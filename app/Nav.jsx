@@ -21,10 +21,10 @@ const Nav = () => {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "About Us", href: "/About" },
-    { name: "Services", href: "/Services" },
+    { name: "About Us", href: "/about" },
+    { name: "Services", href: "/services" },
     { name: "Properties", href: "/properties" },
-    { name: "Contact", href: "/Contact" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (

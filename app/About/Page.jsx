@@ -176,7 +176,7 @@ const page = () => {
               viewport={{ once: true }}
             >
               <p className="mb-4 text-gray-700 leading-relaxed">
-                At <strong>IntDec</strong>, our mission is to craft inspiring,
+                At <strong>Vestra</strong>, our mission is to craft inspiring,
                 functional, and personalized spaces that elevate the way our
                 clients live, work, and experience their surroundings. We are
                 committed to delivering exceptional design solutions that blend

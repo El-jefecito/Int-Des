@@ -115,12 +115,12 @@ const tabs = [
 
 const tabContent = {
   his: [
-    "At InTDec Associates Interior Design, we believe every space should tell a meaningful story...",
+    "At Vestra Associates Interior Design, we believe every space should tell a meaningful story...",
     "With years of industry experience and a passion for innovation, we specialize in both residential and commercial",
     "From initial concepts to final execution, we manage every stage of the process with precision and creation",
   ],
   mis: [
-    "Our mission at iNTDec is to design personalized, functional, and inspiring spaces...",
+    "Our mission at Vestra is to design personalized, functional, and inspiring spaces...",
     "we focus on building lasting client relationships and approach every project with attention to detail...",
   ],
   vis: [
